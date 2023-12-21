@@ -9,7 +9,7 @@ const validateRequest = (zodSchme: AnyZodObject): RequestHandler => {
       });
       next();
     } catch (error) {
-      console.log(error);
+      next(error);
     }
   };
 };

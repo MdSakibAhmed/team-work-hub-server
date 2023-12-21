@@ -10,6 +10,7 @@ const createReviewValidationSchema = z.object({
       invalid_type_error: "rating must be a number",
       required_error: "rating is required",
     }),
+
     review: z.string({
       invalid_type_error: "review must be a string",
       required_error: "review is required",

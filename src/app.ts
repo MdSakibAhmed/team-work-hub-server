@@ -16,4 +16,5 @@ app.use("/api",router)
 
 
 app.use(globalErrorHandler)
+
 export default app;

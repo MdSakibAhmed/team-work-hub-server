@@ -2,6 +2,6 @@ export type TErrorResponse = {
   success: boolean;
   message: string;
   errorMessage: string;
-  errorDetails: string;
-  stack: string;
+  errorDetails: object;
+  stack: string | undefined;
 };
