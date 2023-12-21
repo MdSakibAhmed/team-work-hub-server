@@ -59,6 +59,8 @@ const createCourseValidationSchema = z.object({
   }),
 });
 
+
+// for update 
 const updateTagSchemaValidation = z.object({
   name: z
     .string({
@@ -93,7 +95,7 @@ const updateCourseValidationSchema = z.object({
         invalid_type_error: "price must be a number",
       })
       .optional(),
-    tags: z.array(tagSchemaValidation).optional(),
+    tags: z.array(updateTagSchemaValidation).optional(),
     startDate: z
       .string({
         invalid_type_error: "startDate must be a string",

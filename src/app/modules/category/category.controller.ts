@@ -8,7 +8,7 @@ const createCategory: RequestHandler = catchAsync(async (req, res) => {
   const newCategory = await CategoryServices.createCategoryIntoDB(categoryData);
   res.send({
     success: true,
-    statusCode: 200,
+    statusCode: 201,
     message: "Category created successfully",
     data: newCategory,
   });

@@ -1,8 +1,9 @@
-import { SortOrder } from "mongoose";
+import mongoose, { SortOrder } from "mongoose";
 import { Review } from "../review/review.model";
 import { Course } from "./course.imodel";
 import { TCourse } from "./course.interface";
 import { Shortfields } from "./course.const";
+import { string } from "zod";
 
 const createCourseIntoDB = async (payload: TCourse) => {
   const result = await Course.create(payload);
@@ -39,7 +40,6 @@ const getAllCourseFromDB = async (query: Record<string, unknown>) => {
   }
   console.log(queries);
   let filterQueries = Course.find(queries.length ? { $and: queries } : {});
-
 
   const queryOptions: { [key: string]: SortOrder | { $meta: any } } = {};
   if (query.sortBy) {
@@ -90,40 +90,70 @@ const updateCourseIntoDB = async (
     }
   }
 
-  const updatedCourse = await Course.findByIdAndUpdate(courseId, modifiedData, {
-    new: true,
-    runValidators: true,
-  });
+  const session = await mongoose.startSession();
 
-  // update tags based on isDelted
-  // delete
-  if (tags && tags.length > 0) {
-    const deltedTags = tags.filter((tg) => tg.isDeleted).map((tg) => tg.name);
-    console.log("names", deltedTags);
-    const deltedTagesCours = await Course.findByIdAndUpdate(
+  try {
+    session.startTransaction();
+    const updatedCourse = await Course.findByIdAndUpdate(
       courseId,
+      modifiedData,
       {
-        $pull: {
-          tags: { name: { $in: deltedTags } },
-        },
-      },
-      { new: true }
+        new: true,
+        runValidators: true,
+        session,
+      }
     );
-    const addedTags = tags.filter((tg) => !tg.isDeleted);
-    const addedTagesCours = await Course.findByIdAndUpdate(
-      courseId,
-      {
-        $addToSet: {
-          tags: { $each: addedTags },
+    if (!updatedCourse) {
+      throw new Error("Cant not update course");
+    }
+
+    // update tags based on isDelted
+    // delete
+    if (tags && tags.length > 0) {
+      const deltedTags = tags.filter((tg) => tg.isDeleted).map((tg) => tg.name);
+      console.log("names", deltedTags);
+      const deltedTagesCours = await Course.findByIdAndUpdate(
+        courseId,
+        {
+          $pull: {
+            tags: { name: { $in: deltedTags } },
+          },
         },
-      },
-      { new: true }
-    );
+        { new: true }
+      );
+      if (!deltedTagesCours) {
+        throw new Error("Cant not deleted  tag");
+      }
+      const addedTags = tags.filter((tg) => !tg.isDeleted);
+      const addedTagesCours = await Course.findByIdAndUpdate(
+        courseId,
+        {
+          $addToSet: {
+            tags: { $each: addedTags },
+          },
+        },
+        { new: true }
+      );
+
+      if (!addedTagesCours) {
+        throw new Error("Cant not added tag");
+      }
+    }
+
+    const result = await Course.findById(courseId, {}, { session });
+    if (!result) {
+      throw new Error("Cant not find course ");
+    }
+
+    session.commitTransaction();
+    session.endSession();
+
+    return result;
+  } catch (error: any) {
+    session.abortTransaction();
+    session.endSession();
+    throw new Error(error);
   }
-
-  const result = await Course.findById(courseId);
-
-  return result;
 };
 
 const getCourseWithReviewsFromDB = async (courseId: string) => {
