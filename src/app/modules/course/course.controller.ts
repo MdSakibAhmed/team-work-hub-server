@@ -59,7 +59,7 @@ const getBestCourseBasedOnAvarage: RequestHandler = catchAsync( async (req, res)
     const [data] = await CourseServices.getBestCourseBasedOnAvarageFromDB();
     console.log(data);
     const responsObj = {
-      course: data?.data?.course[0],
+      course: data?.course[0],
       averageRating: data?.data?.averageRating,
       reviewCount: data?.data?.reviewCount,
     };

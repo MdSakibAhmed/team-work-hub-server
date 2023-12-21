@@ -119,7 +119,7 @@ const updateCourseIntoDB = async (
             tags: { name: { $in: deltedTags } },
           },
         },
-        { new: true }
+        { new: true, session }
       );
       if (!deltedTagesCours) {
         throw new Error("Cant not deleted  tag");
@@ -132,7 +132,7 @@ const updateCourseIntoDB = async (
             tags: { $each: addedTags },
           },
         },
-        { new: true }
+        { new: true, session }
       );
 
       if (!addedTagesCours) {
@@ -140,10 +140,7 @@ const updateCourseIntoDB = async (
       }
     }
 
-    const result = await Course.findById(courseId, {}, { session });
-    if (!result) {
-      throw new Error("Cant not find course ");
-    }
+    const result = await Course.findById(courseId);
 
     session.commitTransaction();
     session.endSession();
@@ -177,20 +174,19 @@ const getBestCourseBasedOnAvarageFromDB = async () => {
     },
 
     {
-      $lookup: {
-        from: "courses",
-        localField: "_id",
-        foreignField: "_id",
-        as: "course",
-      },
-    },
-    {
       $group: {
         _id: null,
         data: { $first: "$$ROOT" },
       },
     },
-
+    {
+      $lookup: {
+        from: "courses",
+        localField: "data._id",
+        foreignField: "_id",
+        as: "course",
+      },
+    },
     {
       $project: {
         _id: 0,
@@ -198,7 +194,6 @@ const getBestCourseBasedOnAvarageFromDB = async () => {
       },
     },
   ]);
-
   return result;
 };
 

@@ -1,5 +1,5 @@
 # Course-review-assignment3-l2
-# live link: 
+# live link: https://course-review-olive.vercel.app/
 ## How to run this app locally ?
 <h2>Step-1</h2>
 clone this project in your local machine 
