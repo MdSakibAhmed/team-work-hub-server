@@ -1,22 +1,27 @@
 import { Router } from "express";
-import { CategoryRoutes } from "../modules/category/category.route";
-import { CourseRoutes } from "../modules/course/course.route";
-import { ReviewRoutes } from "../modules/review/review.route";
+import { ProjectRoutes } from "../modules/project/project.route";
+import documentRoutes from "../modules/document/document.route";
+import authRoutes from "../modules/auth/auth.route";
+import feedbackRoutes from "../modules/feedback/feedback.route";
 
 const router = Router();
 
 const moduleRoutes = [
   {
-    path: "/categories",
-    route: CategoryRoutes,
+    path: "/auth",
+    route: authRoutes,
   },
   {
-    path: "/",
-    route: CourseRoutes,
+    path: "/project",
+    route: ProjectRoutes,
   },
   {
-    path: "/reviews",
-    route: ReviewRoutes,
+    path: "/document",
+    route: documentRoutes,
+  },
+  {
+    path: "/feedback",
+    route: feedbackRoutes,
   },
 ];
 
