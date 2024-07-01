@@ -13,9 +13,7 @@
   - [Users API](#users-api)
 - [Socket.IO Real-Time Features](#socketio-real-time-features)
 - [Testing](#testing)
-- [Deployment](#deployment)
-- [Contributing](#contributing)
-- [License](#license)
+
 
 ## Introduction
 
@@ -97,6 +95,13 @@ npm run dev
 
 - POST /api/
 /feedback: Create new feedback in a project.
+
+** User API**
+- POST /api/
+/register: register a new user.
+
+- POST /api/
+/login: log in as a user.
 
 ## Socket.IO Real-Time Features
 
