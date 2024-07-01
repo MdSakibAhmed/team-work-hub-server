@@ -7,7 +7,7 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173","https://team-work-hub-client.onrender.com"],
+    origin: ["http://localhost:5173","https://team-work-hub-client.onrender.com","https://66821c76caa5b7ba62f0dc99--classy-malabi-4cf0a2.netlify.app"],
     credentials: true,
   })
 );
