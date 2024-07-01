@@ -76,7 +76,7 @@ npm run dev
 
 ## API documentation
 
-#Documents API
+**Documents API**
 - GET /api/
 /document: Retrieve all documents for a specific project.
 
@@ -90,6 +90,34 @@ npm run dev
 - DELETE /api/
 /documents/
 : Delete a document by its ID
+
+**Feedback API**
+- GET /api/
+/feedback: Retrieve all feedback for a specific project.
+
+- POST /api/
+/feedback: Create new feedback in a project.
+
+## Socket.IO Real-Time Features
+
+Socket.IO is used for real-time document collaboration and chat. Here's a brief overview of the real-time functionalities:
+1. Socket Setup: Initialize the Socket.IO server and handle connections
+2. Joining Rooms: Users join specific rooms for different documents to receive and broadcast updates only to relevant clients.
+3. Handling Events: Manage incoming and outgoing events for real-time updates.
+
+
+## Testing
+
+Ensure your server-side application is thoroughly tested using the following steps:
+
+1. Use Jest and Supertest for unit and integration testing of your APIs.
+2. Define test cases for each endpoint in the routes and controllers.
+
+To test run : 
+```
+npm run test
+```
+
 
  
     
