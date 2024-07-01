@@ -19,7 +19,6 @@ const register = catchAsync(async (req, res, next) => {
   const newUser = req.body;
   console.log("controller", newUser);
   const { token, userWithoutPass } = await authServices.registerIntoDB(newUser);
-  //   const userInfo = userWithoutPass.toObject();
   const data = {
     token,
     ...userWithoutPass,

@@ -1,4 +1,3 @@
-import { io } from "../../../server";
 import { IDocument } from "../project/project.interface";
 import { Document } from "./document.model";
 
@@ -12,10 +11,6 @@ const getAllDocsFromDB = async () => {
   return result;
 };
 
-const editDocIntoDB = async (documentId: string, data: Partial<IDocument>) => {
-  
- 
-};
 
 const deleteDocFromDB = async (id: string) => {
   const result = Document.findByIdAndDelete(id);
@@ -25,6 +20,5 @@ const deleteDocFromDB = async (id: string) => {
 export const docServices = {
   createDocIntoDB,
   getAllDocsFromDB,
-  editDocIntoDB,
   deleteDocFromDB,
 };

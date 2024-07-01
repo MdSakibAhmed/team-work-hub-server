@@ -15,11 +15,10 @@ const createFeedback: RequestHandler = catchAsync(async (req, res) => {
 
 const getAllFeedbacks: RequestHandler = catchAsync(async (req, res) => {
   const { documentId } = req.query;
-  console.log("docID",documentId);
   const data = await feedbackServices.getAllFeedbacksFromDB(
     documentId as string
   );
-console.log(data);
+  console.log(data);
   res.send({
     success: true,
     statusCode: 200,

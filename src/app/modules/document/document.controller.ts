@@ -6,20 +6,8 @@ import { io } from "../../../server";
 import { Document } from "./document.model";
 
 const createDoc: RequestHandler = catchAsync(async (req, res) => {
-  // const projectId = req.body.projectId;
-  // const isProjectExist = await Project.findById(projectId)
-  // if(!isProjectExist){
-  //     throw new Error(" project does not exist")
-  // }
+
   const newDoc = await docServices.createDocIntoDB(req.body);
-
-  // push newDoc in project
-
-  //   const result = await Project.findByIdAndUpdate(projectId, {
-  //     $addToSet: {
-  //       documents: newDoc,
-  //     },
-  //   });
 
   res.send({
     success: true,
@@ -39,23 +27,7 @@ const getAllDocs: RequestHandler = catchAsync(async (req, res) => {
   });
 });
 
-const editDoc: RequestHandler = catchAsync(async (req, res) => {
-  const { docId } = req.params;
 
-  // console.log(req.body);
- 
-
-  // update docment in project
-
-  //   const update = await Project.updateOne(
-  //     { _id: projectId, "documents._id": docId },
-  //     {
-  //       $set: {
-  //         "documents.$": updatedDoc,
-  //       },
-  //     }
-  //   );
-});
 
 const deleteDoc: RequestHandler = catchAsync(async (req, res) => {
   const { doctId } = req.params;
@@ -73,6 +45,5 @@ const deleteDoc: RequestHandler = catchAsync(async (req, res) => {
 export const docControllers = {
   createDoc,
   getAllDocs,
-  editDoc,
   deleteDoc,
 };

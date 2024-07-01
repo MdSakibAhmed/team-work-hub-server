@@ -2,7 +2,6 @@ import express, { Application, Request, Response } from "express";
 import cors from "cors";
 import router from "./app/routes";
 import globalErrorHandler from "./app/middleware/globalErrorHandler";
-
 const app: Application = express();
 
 app.use(
@@ -13,10 +12,8 @@ app.use(
 );
 app.use(express.json());
 
-
 app.get("/", (req: Request, res: Response) => {
-  res.send({ message: "Hello" });
-
+  res.send("Hello world");
 });
 
 // Routing
