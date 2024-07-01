@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173", // your React app URL
+    origin: ["http://localhost:5173","https://team-work-hub-client.onrender.com"], // your React app URL
     methods: ["GET", "POST"],
     credentials: true,
   },
@@ -68,7 +68,7 @@ const main = async () => {
   server.listen(process.env.PORT || 5000, () => {
     console.log("listening ");
   });
-  
+
 };
 
 main();
