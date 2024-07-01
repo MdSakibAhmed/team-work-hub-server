@@ -7,14 +7,16 @@ const app: Application = express();
 
 app.use(
   cors({
-    origin: ["http://localhost:5173"],
+    origin: ["http://localhost:5173","https://team-work-hub-client.onrender.com"],
     credentials: true,
   })
 );
 app.use(express.json());
 
+
 app.get("/", (req: Request, res: Response) => {
   res.send({ message: "Hello" });
+
 });
 
 // Routing

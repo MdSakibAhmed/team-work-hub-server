@@ -60,12 +60,15 @@ io.on("connection", (socket) => {
     console.log("Client disconnected");
   });
 });
+
+
 const main = async () => {
   const isConnected = await mongoose.connect(config.database_url as string);
   console.log("connected");
   server.listen(process.env.PORT || 5000, () => {
     console.log("listening ");
   });
+  
 };
 
 main();
