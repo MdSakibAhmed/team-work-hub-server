@@ -1,13 +1,11 @@
-# Project Management and Collaboration Tool - Server Side
+# Team Work Hub  - Server Side
 
 ## Table of Contents
 - [Introduction](#introduction)
 - [Features](#features)
 - [Technologies Used](#technologies-used)
 - [Installation and Setup](#installation-and-setup)
-- [Project Structure](#project-structure)
 - [API Documentation](#api-documentation)
-  - [Projects API](#projects-api)
   - [Documents API](#documents-api)
   - [Feedback API](#feedback-api)
   - [Users API](#users-api)
