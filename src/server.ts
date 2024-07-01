@@ -9,7 +9,7 @@ const server = http.createServer(app);
 
 export const io = new Server(server, {
   cors: {
-    origin: ["http://localhost:5173","https://team-work-hub-client.onrender.com","https://66821c76caa5b7ba62f0dc99--classy-malabi-4cf0a2.netlify.app"], // your React app URL
+    origin: ["http://localhost:5173","https://team-work-hub-client.onrender.com","https://classy-malabi-4cf0a2.netlify.app"], // your React app URL
     methods: ["GET", "POST"],
     credentials: true,
   },
