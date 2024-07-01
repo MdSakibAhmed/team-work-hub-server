@@ -6,7 +6,6 @@ import { io } from "../../../server";
 import { Document } from "./document.model";
 
 const createDoc: RequestHandler = catchAsync(async (req, res) => {
-
   const newDoc = await docServices.createDocIntoDB(req.body);
 
   res.send({
@@ -26,8 +25,6 @@ const getAllDocs: RequestHandler = catchAsync(async (req, res) => {
     data,
   });
 });
-
-
 
 const deleteDoc: RequestHandler = catchAsync(async (req, res) => {
   const { doctId } = req.params;
