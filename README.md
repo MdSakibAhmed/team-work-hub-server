@@ -79,13 +79,15 @@ npm run dev
 #Documents API
 - GET /api/
 /document: Retrieve all documents for a specific project.
--POST /api/
+
+- POST /api/
 /documents: Create a new document in a project.
 
--PATH /api/
+- PATH /api/
 /documents/
 : Update a document by its ID.
--DELETE /api/
+
+- DELETE /api/
 /documents/
 : Delete a document by its ID
 
