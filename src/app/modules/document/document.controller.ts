@@ -1,9 +1,7 @@
 import { RequestHandler } from "express";
 import catchAsync from "../../utiles/catchAsync";
 import { docServices } from "./document.service";
-import { Project } from "../project/project.model";
-import { io } from "../../../server";
-import { Document } from "./document.model";
+
 
 const createDoc: RequestHandler = catchAsync(async (req, res) => {
   const newDoc = await docServices.createDocIntoDB(req.body);

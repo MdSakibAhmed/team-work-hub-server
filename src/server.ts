@@ -6,7 +6,7 @@ import http from "http";
 import connectSocket from "./SocketIo/socket";
 const server = http.createServer(app);
 
-export const io = new Server(server, {
+ const io = new Server(server, {
   cors: {
     origin: [
       "http://localhost:5173",

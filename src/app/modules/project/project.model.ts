@@ -7,10 +7,6 @@ import { IProject } from "./project.interface";
 
 const projectSchema = new Schema<IProject>(
   {
-    // userId: {
-    //   type: Schema.Types.ObjectId,
-    //   ref: "User",
-    // },
     title: {
       type: String,
       required: true,
