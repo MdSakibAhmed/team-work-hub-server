@@ -12,4 +12,9 @@ exports.default = {
     salt_rounds: process.env.SALT_ROUNDS,
     jwt_secret_key: process.env.JWT_SECRET_KEY,
     token_expires_time: process.env.TOKEN_EXPIRES_TIME,
+    db_host: process.env.DB_HOST,
+    db_type: process.env.DB_TYPE,
+    db_username: process.env.DB_USERNAME,
+    db_password: process.env.DB_PASSWORD,
+    database_host: process.env.DATABASE_HOST,
 };

@@ -4,7 +4,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
-const project_route_1 = require("../modules/project/project.route");
 const document_route_1 = __importDefault(require("../modules/document/document.route"));
 const auth_route_1 = __importDefault(require("../modules/auth/auth.route"));
 const feedback_route_1 = __importDefault(require("../modules/feedback/feedback.route"));
@@ -13,10 +12,6 @@ const moduleRoutes = [
     {
         path: "/auth",
         route: auth_route_1.default,
-    },
-    {
-        path: "/project",
-        route: project_route_1.ProjectRoutes,
     },
     {
         path: "/document",

@@ -18,9 +18,11 @@ const bcrypt_1 = __importDefault(require("bcrypt"));
 const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const excludeField_1 = __importDefault(require("../../../utils/excludeField"));
 const config_1 = __importDefault(require("../../config"));
+const server_1 = require("../../../server");
 const loginFromDB = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
+    const authRepo = server_1.AppDataSource.getRepository(auth_model_1.Auth);
     const { email, password: plainTextPass } = payLoad;
-    const user = yield auth_model_1.Auth.findOne({ email });
+    const user = yield authRepo.findOne({ where: { email } });
     if (!user) {
         throw new Error("user not found ");
     }
@@ -42,18 +44,18 @@ const loginFromDB = (payLoad) => __awaiter(void 0, void 0, void 0, function* () 
     };
 });
 const registerIntoDB = (payLoad) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(payLoad);
+    const authRepo = server_1.AppDataSource.getRepository(auth_model_1.Auth);
     const hassedPassword = yield bcrypt_1.default.hash(payLoad.password, Number(process.env.SALT_ROUNDS));
     payLoad.password = hassedPassword;
-    const user = yield auth_model_1.Auth.create(payLoad);
+    const user = yield authRepo.save(payLoad);
     const payLoadForToken = {
-        userId: user._id,
+        userId: user.id,
         email: user.email,
     };
     console.log(payLoadForToken);
     const token = jsonwebtoken_1.default.sign(payLoadForToken, config_1.default.jwt_secret_key, {
         algorithm: "HS256",
-        expiresIn: process.env.TOKEN_EXPIRES_TIME,
+        expiresIn: config_1.default.token_expires_time,
     });
     const userWithoutPass = (0, excludeField_1.default)(user, ["password"]);
     return { userWithoutPass, token };

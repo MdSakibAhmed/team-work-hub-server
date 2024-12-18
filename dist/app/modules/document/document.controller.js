@@ -16,18 +16,7 @@ exports.docControllers = void 0;
 const catchAsync_1 = __importDefault(require("../../utiles/catchAsync"));
 const document_service_1 = require("./document.service");
 const createDoc = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // const projectId = req.body.projectId;
-    // const isProjectExist = await Project.findById(projectId)
-    // if(!isProjectExist){
-    //     throw new Error(" project does not exist")
-    // }
     const newDoc = yield document_service_1.docServices.createDocIntoDB(req.body);
-    // push newDoc in project
-    //   const result = await Project.findByIdAndUpdate(projectId, {
-    //     $addToSet: {
-    //       documents: newDoc,
-    //     },
-    //   });
     res.send({
         success: true,
         statusCode: 201,
@@ -44,23 +33,10 @@ const getAllDocs = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, voi
         data,
     });
 }));
-const editDoc = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { docId } = req.params;
-    // console.log(req.body);
-    // update docment in project
-    //   const update = await Project.updateOne(
-    //     { _id: projectId, "documents._id": docId },
-    //     {
-    //       $set: {
-    //         "documents.$": updatedDoc,
-    //       },
-    //     }
-    //   );
-}));
 const deleteDoc = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { doctId } = req.params;
     // console.log(req.body);
-    const deletedProject = yield document_service_1.docServices.deleteDocFromDB(doctId);
+    const deletedProject = yield document_service_1.docServices.deleteDocFromDB(Number(doctId));
     res.send({
         success: true,
         statusCode: 200,
@@ -71,6 +47,5 @@ const deleteDoc = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void
 exports.docControllers = {
     createDoc,
     getAllDocs,
-    editDoc,
     deleteDoc,
 };

@@ -8,13 +8,14 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = __importDefault(require("./app/routes"));
 const globalErrorHandler_1 = __importDefault(require("./app/middleware/globalErrorHandler"));
 const app = (0, express_1.default)();
-app.use((0, cors_1.default)({
-    origin: ["http://localhost:5173"],
+const corsConfig = {
+    origin: ["http://localhost:5173", "https://classy-malabi-4cf0a2.netlify.app"],
     credentials: true,
-}));
+};
+app.use((0, cors_1.default)(corsConfig));
 app.use(express_1.default.json());
 app.get("/", (req, res) => {
-    res.send({ message: "Hello" });
+    res.send("Hello world");
 });
 // Routing
 app.use("/api", routes_1.default);

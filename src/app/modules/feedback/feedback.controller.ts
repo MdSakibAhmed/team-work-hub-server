@@ -15,9 +15,7 @@ const createFeedback: RequestHandler = catchAsync(async (req, res) => {
 
 const getAllFeedbacks: RequestHandler = catchAsync(async (req, res) => {
   const { documentId } = req.query;
-  const data = await feedbackServices.getAllFeedbacksFromDB(
-    documentId as string
-  );
+  const data = await feedbackServices.getAllFeedbacksFromDB(Number(documentId));
   console.log(data);
   res.send({
     success: true,

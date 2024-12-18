@@ -1,11 +1,8 @@
 import { Router } from "express";
 import validateRequest from "../../middleware/validateRequest";
 
-import {
-  createDocumentValidationSchema,
-  updateDocumentValidationSchema,
-} from "../project/project.validation";
 import { docControllers } from "./document.controller";
+import { createDocumentValidationSchema } from "./document.validation";
 
 const router = Router();
 

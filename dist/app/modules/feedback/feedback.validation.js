@@ -8,6 +8,10 @@ exports.createFeedbackValidationSchema = zod_1.z.object({
             invalid_type_error: "userId must be a string",
             required_error: "userId is required",
         }),
+        documentId: zod_1.z.string({
+            invalid_type_error: "documentId must be a string",
+            required_error: "documentId  is required",
+        }),
         content: zod_1.z.string({
             invalid_type_error: "content must be a string",
             required_error: "content is required",

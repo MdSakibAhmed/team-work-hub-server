@@ -28,9 +28,7 @@ const login = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, vo
 }));
 const register = (0, catchAsync_1.default)((req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = req.body;
-    console.log("controller", newUser);
     const { token, userWithoutPass } = yield auth_service_1.authServices.registerIntoDB(newUser);
-    //   const userInfo = userWithoutPass.toObject();
     const data = Object.assign({ token }, userWithoutPass);
     res.send({
         success: true,

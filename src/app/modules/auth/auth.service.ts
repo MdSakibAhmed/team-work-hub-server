@@ -4,9 +4,12 @@ import jwt from "jsonwebtoken";
 import exclude from "../../../utils/excludeField";
 import { TAuth } from "./auth.interface";
 import config from "../../config";
+import { AppDataSource } from "../../../server";
 const loginFromDB = async (payLoad: { email: string; password: string }) => {
+  const authRepo = AppDataSource.getRepository(Auth);
+
   const { email, password: plainTextPass } = payLoad;
-  const user = await Auth.findOne({ email });
+  const user = await authRepo.findOne({ where: { email } });
 
   if (!user) {
     throw new Error("user not found ");
@@ -40,22 +43,22 @@ const loginFromDB = async (payLoad: { email: string; password: string }) => {
 };
 
 const registerIntoDB = async (payLoad: TAuth) => {
-  console.log(payLoad);
+  const authRepo = AppDataSource.getRepository(Auth);
   const hassedPassword = await bcrypt.hash(
     payLoad.password,
     Number(process.env.SALT_ROUNDS)
   );
   payLoad.password = hassedPassword;
-  const user = await Auth.create(payLoad);
+  const user = await authRepo.save(payLoad);
   const payLoadForToken = {
-    userId: user._id,
+    userId: user.id,
     email: user.email,
   };
   console.log(payLoadForToken);
 
   const token = jwt.sign(payLoadForToken, config.jwt_secret_key as string, {
     algorithm: "HS256",
-    expiresIn: process.env.TOKEN_EXPIRES_TIME,
+    expiresIn: config.token_expires_time,
   });
   const userWithoutPass = exclude(user, ["password"]);
   return { userWithoutPass, token };

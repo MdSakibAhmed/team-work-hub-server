@@ -1,4 +1,4 @@
-interface TDocument {
-    title:string,
-    content:string,
+export interface TDocument {
+  title: string;
+  content: string;
 }

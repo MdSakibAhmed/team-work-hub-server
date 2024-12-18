@@ -2,7 +2,6 @@ import { RequestHandler } from "express";
 import catchAsync from "../../utiles/catchAsync";
 import { docServices } from "./document.service";
 
-
 const createDoc: RequestHandler = catchAsync(async (req, res) => {
   const newDoc = await docServices.createDocIntoDB(req.body);
 
@@ -28,7 +27,7 @@ const deleteDoc: RequestHandler = catchAsync(async (req, res) => {
   const { doctId } = req.params;
 
   // console.log(req.body);
-  const deletedProject = await docServices.deleteDocFromDB(doctId);
+  const deletedProject = await docServices.deleteDocFromDB(Number(doctId));
   res.send({
     success: true,
     statusCode: 200,

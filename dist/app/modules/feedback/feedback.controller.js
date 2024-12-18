@@ -26,8 +26,7 @@ const createFeedback = (0, catchAsync_1.default)((req, res) => __awaiter(void 0,
 }));
 const getAllFeedbacks = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { documentId } = req.query;
-    console.log("docID", documentId);
-    const data = yield feedback_service_1.feedbackServices.getAllFeedbacksFromDB(documentId);
+    const data = yield feedback_service_1.feedbackServices.getAllFeedbacksFromDB(Number(documentId));
     console.log(data);
     res.send({
         success: true,
