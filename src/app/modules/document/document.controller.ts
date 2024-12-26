@@ -3,7 +3,7 @@ import catchAsync from "../../utiles/catchAsync";
 import { docServices } from "./document.service";
 
 const createDoc: RequestHandler = catchAsync(async (req, res) => {
-  const newDoc = await docServices.createDocIntoDB(req.body);
+  const newDoc = await docServices.createDocIntoDB(req.body, req.originalUrl);
 
   res.send({
     success: true,
@@ -14,7 +14,7 @@ const createDoc: RequestHandler = catchAsync(async (req, res) => {
 });
 
 const getAllDocs: RequestHandler = catchAsync(async (req, res) => {
-  const data = await docServices.getAllDocsFromDB();
+  const data = await docServices.getAllDocsFromDB(req.originalUrl);
   res.send({
     success: true,
     statusCode: 200,
@@ -27,7 +27,10 @@ const deleteDoc: RequestHandler = catchAsync(async (req, res) => {
   const { doctId } = req.params;
 
   // console.log(req.body);
-  const deletedProject = await docServices.deleteDocFromDB(Number(doctId));
+  const deletedProject = await docServices.deleteDocFromDB(
+    Number(doctId),
+    req.originalUrl
+  );
   res.send({
     success: true,
     statusCode: 200,

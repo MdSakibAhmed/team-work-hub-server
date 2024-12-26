@@ -3,7 +3,10 @@ import catchAsync from "../../utiles/catchAsync";
 import { feedbackServices } from "./feedback.service";
 
 const createFeedback: RequestHandler = catchAsync(async (req, res) => {
-  const newDoc = await feedbackServices.createFeedbackIntoDB(req.body);
+  const newDoc = await feedbackServices.createFeedbackIntoDB(
+    req.body,
+    req.originalUrl
+  );
 
   res.send({
     success: true,
@@ -15,7 +18,10 @@ const createFeedback: RequestHandler = catchAsync(async (req, res) => {
 
 const getAllFeedbacks: RequestHandler = catchAsync(async (req, res) => {
   const { documentId } = req.query;
-  const data = await feedbackServices.getAllFeedbacksFromDB(Number(documentId));
+  const data = await feedbackServices.getAllFeedbacksFromDB(
+    Number(documentId),
+    req.originalUrl
+  );
   console.log(data);
   res.send({
     success: true,

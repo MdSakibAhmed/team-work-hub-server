@@ -1,11 +1,14 @@
 import { FindOperator } from "typeorm";
-import { AppDataSource } from "../../../server";
+import { AppDataSource, redisClient } from "../../../server";
 import { Auth } from "../auth/auth.model";
 import { Document } from "../document/document.model";
 import { IFeedback } from "./feedback.interface";
 import { Feedback } from "./feedback.model";
 
-const createFeedbackIntoDB = async (payload: IFeedback) => {
+const createFeedbackIntoDB = async (
+  payload: IFeedback,
+  originalUrl: string
+) => {
   const feedbackRepo = AppDataSource.getRepository(Feedback);
   const authRepo = AppDataSource.getRepository(Auth);
   const documentRepo = AppDataSource.getRepository(Document);
@@ -28,10 +31,14 @@ const createFeedbackIntoDB = async (payload: IFeedback) => {
   feedbackBody.document = existingDocument;
   const result = await feedbackRepo.save(feedbackBody);
 
+  // invalid redis cache
+  await redisClient.del(originalUrl);
+
   return result;
 };
 const getAllFeedbacksFromDB = async (
-  documentId: number | FindOperator<number>
+  documentId: number | FindOperator<number>,
+  originalUrl: string
 ) => {
   const feedbackRepo = AppDataSource.getRepository(Feedback);
   const result = await feedbackRepo.find({
@@ -42,6 +49,9 @@ const getAllFeedbacksFromDB = async (
       },
     },
   });
+
+  // store redis cache
+  await redisClient.set(originalUrl, JSON.stringify(result), "EX", 60);
   return result;
 };
 

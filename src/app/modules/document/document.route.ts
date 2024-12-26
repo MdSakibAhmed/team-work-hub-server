@@ -3,6 +3,7 @@ import validateRequest from "../../middleware/validateRequest";
 
 import { docControllers } from "./document.controller";
 import { createDocumentValidationSchema } from "./document.validation";
+import { handleRedisCache } from "../../middleware/redisCacheHandler";
 
 const router = Router();
 
@@ -12,7 +13,7 @@ router.post(
   docControllers.createDoc
 );
 
-router.get("/", docControllers.getAllDocs);
+router.get("/", handleRedisCache, docControllers.getAllDocs);
 
 router.delete("/:docId", docControllers.deleteDoc);
 
